@@ -1,12 +1,15 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const global = require('./utils/global')
 const multer = require('multer')
 
 // .env config
 require('dotenv').config();
 
 var app = express()
+
+app.set('isLogin', global.isLogin)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))

@@ -38,6 +38,7 @@ module.exports = {
         })
       }else{
         const token = jwt.sign({ username: req.body.username }, process.env.JWT_SECRET, {expiresIn : 60*60*1})  // 有效时间24小时
+        req.app.set('isLogin', true)
         return res.send({
           code: 1,
           message: 'success',
@@ -83,7 +84,7 @@ module.exports = {
         password: verification.generateHash(password)
       }).then(data => {
         const token = jwt.sign({ username: username }, process.env.JWT_SECRET, { expiresIn: 60*60*1 })
-
+        req.app.set('isLogin', true)
         res.send({
           code: 1,
           message: 'Signed up',
