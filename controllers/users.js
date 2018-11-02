@@ -102,5 +102,32 @@ module.exports = {
         message: 'Server Error'
       })
     })
+  },
+  // 上传文件(单)
+  uploadSingle: (req, res, next) => {
+    res.send({
+      code: 1,
+      message: 'upload success!',
+      data: {
+        name: req.file.originalname,
+        path: req.file.path
+      }
+    })
+  },
+  // 上传文件(多)
+  uploadMultiple: (req, res, next) => {
+    var files = req.files
+    var filesArr = []
+    for(var arr of files){
+      filesArr.push({name: arr.originalname, path: arr.path})
+    }
+    res.send({
+      code: 1,
+      message: 'upload success!',
+      data: filesArr
+    })
+  },
+  checkTokenTest: (req, res, next) => {
+    res.send('success token')
   }
 }

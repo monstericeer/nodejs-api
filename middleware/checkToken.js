@@ -7,6 +7,7 @@ module.exports = (req, res, next) => {
     // decoded -> 解码后的Token数据
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if(err){
+        console.log('1')
         return res.send({
           code: -1,
           message: 'Auth failed'
