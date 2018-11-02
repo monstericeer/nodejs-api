@@ -126,8 +126,5 @@ module.exports = {
       message: 'upload success!',
       data: filesArr
     })
-  },
-  checkTokenTest: (req, res, next) => {
-    res.send('success token')
   }
 }
