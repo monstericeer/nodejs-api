@@ -85,7 +85,7 @@ module.exports = {
       }).then(data => {
         const token = jwt.sign({ username: username }, process.env.JWT_SECRET, { expiresIn: 60*60*1 })
         req.app.set('isLogin', true)
-        res.send({
+        return res.send({
           code: 1,
           message: 'Signed up',
           token: token
@@ -105,7 +105,7 @@ module.exports = {
   },
   // 上传文件(单)
   uploadSingle: (req, res, next) => {
-    res.send({
+    return res.send({
       code: 1,
       message: 'upload success!',
       data: {
@@ -121,10 +121,33 @@ module.exports = {
     for(var arr of files){
       filesArr.push({name: arr.originalname, path: arr.path})
     }
-    res.send({
+    return res.send({
       code: 1,
       message: 'upload success!',
       data: filesArr
+    })
+  },
+  // 获取所有用户
+  userList: (req, res, next) => {
+    var data = {}
+    if(req.body.keyword){
+      data = { username: req.body.keyword}
+    }
+    UserModel.find(data).then(data => {
+      var usersData = []
+      for(var arr of data){
+        usersData.push({id: arr._id, username: arr.username})
+      }
+      return res.send({
+        code: 1,
+        message: 'get success!',
+        data:  usersData
+      })
+    }).catch(err => {
+      return res.send({
+        code: -1,
+        message: 'server error'
+      })
     })
   }
 }
